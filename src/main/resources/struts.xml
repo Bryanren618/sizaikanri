@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+	<!-- 设置Struts2是否支持动态方法调用，为true时是支持，为false时是关闭动态方法调用 -->
+	
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="false" />
+	
+	<!-- 当value="true"时，意为启动开发模式；当前支持热部署，热部署就是在服务器运行时重新部署项目，
+	一般在开发阶段开启（即value="true"），则可以在应用出错时显示更多、更友好的出错提示，
+	在项目发布后改成value="false"时，意思相反。 -->
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+</struts>

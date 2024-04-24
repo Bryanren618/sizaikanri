@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.jp.mamol.myapp.dao.StoreDao">
+
+	<!-- DA4001資材情報一件取得 -->
+	<select id="getSizaiById"
+		resultType="co.jp.mamol.myapp.dto.SizaiDto">
+		SELECT
+		S.ID,S.NAME,S.NUM,S.SOUKO_ID,SOU.NAME AS souko_name,
+		S.CATEGORY_ID,C.NAME AS category_name,
+		S.REQUEST_USER_ID, U.NAME AS
+		request_user_name,
+		S.REQUEST_DEPT_ID,
+		D.NAME AS request_dept_name,
+		S.STATUS, STA.NAME AS status_name,
+		S.REQUEST_DATE,
+		S.ORDER_DATE,S.DELIVERY_DATE,S.INSTORE_DATE,S.OUTSTORE_DATE,
+		S.NOTE
+		FROM SIZAI S
+		INNER JOIN CATEGORY C ON
+		S.CATEGORY_ID = C.ID
+		INNER JOIN
+		USERS U ON
+		S.REQUEST_USER_ID = U.ID
+		INNER JOIN DEPARTMENT D ON
+		S.REQUEST_DEPT_ID = D.ID
+		INNER JOIN STATUS
+		STA ON S.STATUS = STA.CODE
+		LEFT JOIN SOUKO SOU
+		ON S.SOUKO_ID = SOU.ID
+		WHERE
+		S.ID = #{sizai_id}
+	</select>
+	<!-- DA4002倉庫情報取得 -->
+	<select id="getSoukoList"
+		resultType="co.jp.mamol.myapp.dto.SoukoDto">
+		SELECT * FROM
+		SOUKO
+	</select>
+	<!-- DA4003入庫実行 -->
+	<update id="inStoreAct"
+		parameterType="co.jp.mamol.myapp.dto.SizaiDto">
+		UPDATE SIZAI
+		SET STATUS = '6',
+		SOUKO_ID = #{souko_id},
+		INSTORE_DATE = NOW()
+		WHERE ID = #{id}
+		AND
+		STATUS = '5'
+	</update>
+	<!-- DA4004出庫実行 -->
+	<update id="outStoreAct"
+		parameterType="co.jp.mamol.myapp.dto.SizaiDto">
+		UPDATE SIZAI
+		SET STATUS = '7',
+		OUTSTORE_DATE = NOW()
+		WHERE ID = #{id}
+		AND
+		STATUS = '6'
+	</update>
+
+
+
+
+
+</mapper>

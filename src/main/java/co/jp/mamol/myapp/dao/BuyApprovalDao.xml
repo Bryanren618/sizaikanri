@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.jp.mamol.myapp.dao.BuyApprovalDao">
+
+	<!-- DA2001 部門別購入依頼一覧 -->
+	<select id="getDeptRequsetList"
+		resultType="co.jp.mamol.myapp.dto.SizaiDto">
+		SELECT
+		S.ID,S.NAME,S.NUM,S.CATEGORY_ID,C.NAME AS
+		category_name,
+		S.REQUEST_USER_ID, U.NAME AS request_user_name,
+		S.REQUEST_DEPT_ID,
+		D.NAME AS request_dept_name, S.STATUS, STA.NAME AS
+		status_name,
+		S.REQUEST_DATE, S.NOTE
+		FROM SIZAI S
+		INNER JOIN
+		CATEGORY C ON
+		S.CATEGORY_ID = C.ID
+		INNER JOIN USERS U ON
+		S.REQUEST_USER_ID = U.ID
+		INNER JOIN DEPARTMENT D ON
+		S.REQUEST_DEPT_ID = D.ID
+		INNER JOIN STATUS
+		STA ON S.STATUS = STA.CODE
+		WHERE
+		S.REQUEST_DATE
+		BETWEEN #{start_date}
+		AND
+		#{end_date} AND
+		S.REQUEST_DEPT_ID = #{dept_id}
+		ORDER BY S.REQUEST_DATE,
+		S.ID
+	</select>
+
+	<!-- DA2002 購入依頼一件取得 -->
+	<select id="getRequestById"
+		resultType="co.jp.mamol.myapp.dto.SizaiDto">
+		SELECT
+		S.ID,S.NAME,S.NUM,S.CATEGORY_ID,C.NAME AS
+		category_name,
+		S.REQUEST_USER_ID, U.NAME AS request_user_name,
+		S.REQUEST_DEPT_ID,
+		D.NAME AS request_dept_name, S.STATUS, STA.NAME AS
+		status_name,
+		S.REQUEST_DATE, S.NOTE
+		FROM SIZAI S
+		INNER JOIN
+		CATEGORY C ON
+		S.CATEGORY_ID = C.ID
+		INNER
+		JOIN USERS U ON
+		S.REQUEST_USER_ID = U.ID
+		INNER
+		JOIN DEPARTMENT D ON
+		S.REQUEST_DEPT_ID =
+		D.ID
+		INNER JOIN STATUS STA ON
+		S.STATUS = STA.CODE
+		WHERE S.ID = #{sizai_id}
+	</select>
+	
+	<!-- DA2003 承認実行 -->
+	<update id="approval">
+		UPDATE SIZAI
+		SET STATUS = '2'
+		WHERE
+		ID = #{sizai_id}
+		AND
+		(STATUS = '1' OR STATUS = '3')
+	</update>
+
+	<!-- DA2004 却下実行 -->
+	<update id="reject">
+		UPDATE SIZAI
+		SET STATUS = '3'
+		WHERE
+		ID = #{sizai_id}
+		AND
+		STATUS = '1'
+	</update>
+
+</mapper>
