@@ -62,7 +62,7 @@ public class BuyApprovalListAction extends BaseAction {
   // 承認
   @Action("/approvalList/approval")
   public String approval() {
-    int i = buyApprovalListForm.getTarget_id();
+    //int i = buyApprovalListForm.getTarget_id();
     buyApprovalService.approval(buyApprovalListForm.getTarget_id());
 
     return "init";

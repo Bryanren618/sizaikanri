@@ -1,7 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\co",
+    "\\src\\main\\java\\co\\jp",
+    "\\src\\main\\java\\co\\jp\\mamol",
+    "\\src\\main\\java\\co\\jp\\mamol\\myapp",
+    "\\src\\main\\java\\co\\jp\\mamol\\myapp\\action"
   ],
-  "SelectedNode": "\\C:\\vscodeRepository",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
