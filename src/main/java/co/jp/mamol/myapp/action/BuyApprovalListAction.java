@@ -35,7 +35,7 @@ public class BuyApprovalListAction extends BaseAction {
     UserDto loginInfo = getLoginUser();
     List<SizaiDto> szDtoList = buyApprovalService.getDeptRequsetList(oneMonBeforeDateString,
         nowDateString, loginInfo.getDepid());
-    if (szDtoList == null || szDtoList.size() == 0) {
+    if (szDtoList == null || szDtoList.isEmpty()) {
       setMessage("指定期間の購入依頼が登録されていません。", false);
     } else {
       buyApprovalListForm.setSzList(szDtoList);
@@ -50,7 +50,7 @@ public class BuyApprovalListAction extends BaseAction {
     List<SizaiDto> szDtoList =
         buyApprovalService.getDeptRequsetList(buyApprovalListForm.getStart_date(),
             buyApprovalListForm.getEnd_date(), loginInfo.getDepid());
-    if (szDtoList == null || szDtoList.size() == 0) {
+    if (szDtoList == null || szDtoList.isEmpty()) {
       setMessage("指定期間の購入依頼が登録されていません。", false);
     } else {
       buyApprovalListForm.setSzList(szDtoList);
